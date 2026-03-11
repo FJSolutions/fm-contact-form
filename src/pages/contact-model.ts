@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const contactSchema = z.object({
+const ContactSchema = z.object({
   firstName: z.string({error: "This field is required"}),
   lastName: z.string({error: "This field is required"}),
   email: z.string({error: "This field is required"}).email({error: "Please enter a valid email address"}),
@@ -8,6 +8,6 @@ const contactSchema = z.object({
   message: z.string({error: "This field is required"}),
 })
 
-export type Contact = typeof contactSchema
+export type Contact = typeof ContactSchema
 
-export { contactSchema }
+export { ContactSchema }

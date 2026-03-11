@@ -112,6 +112,11 @@ main {
     }
   }
 
+  input[type="checkbox"] {
+    width: initial;
+    margin-right: 0.5rem;
+  }
+
   [type="submit"] {
     background-color: var(--green-600);
     color: var(--white);

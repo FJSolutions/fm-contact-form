@@ -1,12 +1,15 @@
 import type { TargetedEvent } from "preact";
 import { TextInput } from "../components/text-input.tsx";
 import { signal } from "@preact/signals";
+import { CheckInput } from "../components/check-input.tsx";
+import { ContactSchema } from "./contact-model.ts";
 
 const ContactForm = () => {
   const handleSubmit = (e: TargetedEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = Object.fromEntries(new FormData(e.currentTarget))
-    console.log(formData)
+    const validation = ContactSchema.safeParse(formData)
+    console.log(validation)
   }
 
   const firstName = signal("")
@@ -14,23 +17,24 @@ const ContactForm = () => {
   const email = signal("")
   const message = signal("")
   const queryType = signal("")
-
+  const consent = signal(false)
 
   return (
     <form onSubmit={handleSubmit} id="contact-form" autoComplete="on">
       <h1>Contact Us</h1>
       <section id="contact-names">
-        <TextInput type={"text"} name={"firstName"} label={"First name"} placeholder={"First name"}
+        <TextInput type={"text"} name={"firstName"} label={"First name"}
+                   placeholder={"First name"}
                    required={true}
                    value={firstName} autoFocus={true}
-                   description="Your first name"
                    errors="An error!">
         </TextInput>
         <TextInput type={"text"} name={"surname"} label={"Surname"} placeholder={"Surname"}
                    required={true}
                    value={surname}/>
       </section>
-      <TextInput type={"email"} name={"email"} label={"Email"} placeholder={"someone@example.com"}
+      <TextInput type={"email"} name={"email"} label={"Email"}
+                 placeholder={"someone@example.com"}
                  required={true}
                  value={email}/>
       <fieldset id="queryType">
@@ -48,10 +52,8 @@ const ContactForm = () => {
       </fieldset>
       <TextInput type="textarea" name={"message"} label={"Message"} value={message}
                  required={true}/>
-      <label for="consent">
-        <input type="checkbox" id="consent" name="consent"/>
-        <span>I consent to being contacted by the team</span>
-      </label>
+      <CheckInput name={"consent"} label={"I consent to being contacted by the team"}
+                  value={consent} required={true}/>
       <input type="submit">Submit</input>
     </form>
   )
