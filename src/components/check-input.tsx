@@ -1,46 +1,40 @@
 import type { PropsWithChildren } from "preact/compat";
 import type { Signal } from "@preact/signals";
-import { match, P } from "ts-pattern";
 import { Fragment } from "preact";
+import { errorMessages } from "./component-utils.tsx";
 
 export interface CheckInputProps extends PropsWithChildren {
-  name: string
-  label: string
-  required?: boolean
-  value: Signal
-  description?: string
-  errors?: string[] | string
+   name: string
+   label: string
+   required?: boolean
+   value: Signal
+   description?: string
+   errors?: Signal<Record<string, string[] | string | undefined>>
 }
 
 const CheckInput = (props: CheckInputProps) => {
-  const inputName = `${props.name}`
+   const inputName = `${props.name}`
 
-  const descriptionComponent = props.description ? <div className="input-description">
-    {props.description}
-  </div> : Fragment;
+   const descriptionComponent = props.description ? <div className="input-description">
+      {props.description}
+   </div> : Fragment;
 
-  const errorsComponent =
-    match(props.errors)
-      .with(P.nullish, () => (<Fragment/>))
-      .with(P.string, (error) => (<p className="input-errors">{error}</p>))
-      .with(P.array(P.string), (errors) => (
-        <ul>{errors.map((error) => <li className="input-errors" key={error}>{error}</li>)}</ul>))
-      .exhaustive()
+   const errorComponent = errorMessages(props.errors, props.name)
 
-  return (
-    <div class="input-field">
-      <label for={inputName}>
-        <input
-          type="checkbox"
-          name={inputName}
-          id={inputName}
-          aria-required={props.required}
-          checked={props.value}/>
-        {props.label} {props.required && <span>*</span>}
-      </label>
-      {descriptionComponent}
-      {errorsComponent}
-    </div>)
+   return (
+      <div class="input-field">
+         <label for={inputName}>
+            <input
+               type="checkbox"
+               name={inputName}
+               id={inputName}
+               aria-required={props.required}
+               checked={props.value}/>
+            {props.label} {props.required && <span>*</span>}
+         </label>
+         {descriptionComponent}
+         {errorComponent}
+      </div>)
 }
 
 export { CheckInput }

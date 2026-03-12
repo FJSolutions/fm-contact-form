@@ -14,14 +14,13 @@ Frontend Mentor challenges help you improve your coding skills by building reali
     - [Built with](#built-with)
     - [What I learned](#what-i-learned)
     - [Continued development](#continued-development)
-    - [Useful resources](#useful-resources)
     - [AI Collaboration](#ai-collaboration)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
+
+- Helper to convert the form data into an object that looks like the model with `any` values.
+- Validation to move into the model which will return a `boolean`   
 
 ### The challenge
 
@@ -52,6 +51,7 @@ Frontend Mentor challenges help you improve your coding skills by building reali
 - [Preact](https://preactjs.com/) - JS library
 - [TS-Pattern](https://github.com/gvergnaud/ts-pattern) - TypeScript pattern-matching
 - [LightningCSS](https://lightningcss.dev/) - For styles
+- [Zod](https://zod.dev/) - For validation
 
 ### What I learned
 
