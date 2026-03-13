@@ -21,7 +21,7 @@ Frontend Mentor challenges help you improve your coding skills by building reali
 
 ### The challenge
 
-Navigate the whole form and submit it by only using the keyboard.
+Be able to navigate the whole form and submit it by only using the keyboard and a screen reader.
 
 ### Screenshots
 
@@ -39,8 +39,8 @@ Navigate the whole form and submit it by only using the keyboard.
 
 ### Links
 
-- Solution URL: https://github.com/FJSolutions/fm-contact-form
-- Live Site URL: 
+- Solution URL: https://github.com/FJSolutions/fm-contact-form/
+- Live Site URL: https://fbj-fm-contact-form.netlify.app/
 
 ## My process
 
@@ -59,10 +59,27 @@ Navigate the whole form and submit it by only using the keyboard.
 
 ### What I learned
 
-- Absolutely loving `prect`
-- Making input components for consistent layout, classes, and accessibility 
+I am absolutely loving `prect`. I have used `react` before, especially in `next.js` and enjoyed it,
+but I am seeing the reason that `preact` was created, and I'm really enjoying it.
 
-- Find a better way to structure my CSS; it's become too spaghetti-like.
+Having said that, I decided to use `creatModel` for the first time and was caught by the difference
+in the render cycle between hooks and signals. I probably spent half of the time, which I did spend
+on the project, on understanding and debugging this. A very worthwhile exercise, even if it was very
+frustrating from time to time.
+
+I used `zod` for validation as it seems to be the industry standard, and learned a few new things
+about getting exactly the validation I wanted. I also used `ts-pattern`, a pattern-matching library
+for `typescript` and will use it again &ndash I am an avid functional programming fan (`preact` and
+`react` were designed with functional patterns to the fore). This library adds one of the
+features that I miss most in TypeScript.
+
+`preact` enabled me to componentise the form controls for more consistency of accessibility,
+styling, and feature encapsulation. If I had spent more time on this project I would have made these
+components more robust and consistent across all controls.
+
+With the nominal increase in complexity of this mini-project I realise that I need to find a better
+way to structure my CSS &ndash; it is become too spaghetti-like. Similarly, I need to look at CSS
+Modules per component.
 
 ```css
 [type="submit"]:hover {
@@ -70,25 +87,34 @@ Navigate the whole form and submit it by only using the keyboard.
 }
 ```
 
-- Challenges of using `createModel` (multiple re-renders loosing state) and just how good it is
-
+Choosing to use `createModel` was both valuable and frustrating! I like the single source of truth
+for all the state and got the basics working quickly. But what I was implementing the error handling
+and feedback I got caught with a multiple re-rendering scenario where I was loosing state because of
+multiple renders. However, when I realised what was going on I also quickly realise the necessary
+solution (using a `computed` function). The net result: I'm loving `preact` even though there is a
+lot more to learn.
 
 ```ts
 export const ContactModel = createModel((): Contact => {
-  const firstName = signal("")
-  const surname = signal("")
-  const email = signal("")
+   const firstName = signal("")
+   const surname = signal("")
+   const email = signal("")
 ...
 })
 ```
 
+The above snippet creates a constructor function! Even seeing this pattern tickles my functional
+funny-bone. Because it is a HOF (higher order function) being used in an OO (Object-Oriented) way!
+
 ### Continued development
 
-Save the data in a database for later use.
+Save the data in a database for later use and send an acknowledgement email before redirecting the
+user to and FAQ page.
 
 ### AI Collaboration
 
-I used external AIs to validate and inform my design ideas and implementations but no code generation.
+I used external AIs to validate and inform my design ideas and implementations but no code
+generation.
 
 ## Author
 
