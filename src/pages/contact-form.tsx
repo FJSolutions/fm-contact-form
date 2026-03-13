@@ -1,59 +1,11 @@
 import type { TargetedEvent } from "preact";
-import { createModel, type Signal, signal } from "@preact/signals";
-import { ContactSchema } from "./contact-model.ts";
+import { computed } from "@preact/signals";
+import { toast } from 'sonner';
 import { TextInput } from "../components/text-input.tsx";
 import { CheckInput } from "../components/check-input.tsx";
-import { formDataToObject, type FormError, type FormObject } from "./form-utils.ts";
-import { z } from "zod";
+import { formDataToObject } from "./form-utils.ts";
 import { errorMessages } from "../components/component-utils.tsx";
-
-interface Contact {
-   firstName: Signal<string>;
-   surname: Signal<string>;
-   email: Signal<string>;
-   message: Signal<string>;
-   queryType: Signal<"General Enquiry" | "Support Request" | "">
-   consent: Signal<boolean>
-   errors: Signal<FormError<Contact>>
-   validate: (data: FormObject<Contact>) => boolean
-}
-
-// @ts-ignore
-const ContactModel = createModel((): Contact => {
-   const firstName = signal("")
-   const surname = signal("")
-   const email = signal("")
-   const message = signal("")
-   const queryType = signal<"General Enquiry" | "Support Request" | "">("")
-   const consent = signal(false)
-   const errors: Signal<FormError<Contact>> = signal({})
-
-   return {
-      firstName, surname, email, message, queryType, consent, errors,
-
-      validate(data: FormObject<Contact>): boolean {
-         const validation = ContactSchema.safeParse(data)
-         if (!validation.success) {
-            const zodErrors = z.treeifyError(validation.error)
-            let res = {}
-            if (zodErrors.properties) {
-               const properties = zodErrors.properties as Record<string, any>
-               Object.keys(properties).forEach(key => {
-                  const innerProp = properties[key]["errors"]
-                  Object.defineProperty(res, key, {value: innerProp})
-               })
-            }
-
-            consent.value = data.consent.value
-
-            errors.value = res
-            return false
-         }
-
-         return true
-      }
-   }
-})
+import { type Contact, ContactModel } from "./contact-model.ts";
 
 const ContactForm = () => {
    const model: Contact = new ContactModel()
@@ -64,9 +16,15 @@ const ContactForm = () => {
       const valid = model.validate(formData)
       if (valid) {
          e.currentTarget.reset()
-         alert("Success")
+         toast.success("Success", {
+            description: "Thanks for completing the form. We'll be in touch soon!",
+            duration: 3000,
+         })
       }
    }
+
+   const queryTypeError = computed(() => errorMessages(model.errors, "queryType"))
+
    return (
       <form onSubmit={handleSubmit} id="contact-form" autoComplete="on">
          <h1>Contact Us</h1>
@@ -99,8 +57,8 @@ const ContactForm = () => {
                       checked={model.queryType.value === "Support Request"}/>
                <span>Support Request</span>
             </label>
-            {/*{errorMessages(model.errors, "queryType")}*/}
          </fieldset>
+         {queryTypeError}
          <TextInput type="textarea" name={"message"} label={"Message"} value={model.message}
                     required={true}
                     errors={model.errors}/>

@@ -19,20 +19,21 @@ Frontend Mentor challenges help you improve your coding skills by building reali
 
 ## Overview
 
-- Helper to convert the form data into an object that looks like the model with `any` values.
-- Validation to move into the model which will return a `boolean`   
-
 ### The challenge
 
 ### Screenshot
 
 #### Mobile view
 
-![](./)
+![](./screenshot-mobile.png)
 
-#### Desktop view
+#### Desktop view (success)
 
-![](./)
+![](./screenshot-success.png)
+
+#### Desktop view (error)
+
+![](./screenshot-errors.png)
 
 ### Links
 
@@ -52,6 +53,7 @@ Frontend Mentor challenges help you improve your coding skills by building reali
 - [TS-Pattern](https://github.com/gvergnaud/ts-pattern) - TypeScript pattern-matching
 - [LightningCSS](https://lightningcss.dev/) - For styles
 - [Zod](https://zod.dev/) - For validation
+- [Sonner](https://sonner.emilkowal.ski/) - Toast
 
 ### What I learned
 

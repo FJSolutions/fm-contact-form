@@ -18,6 +18,7 @@
 * {
   font-family: 'Karla', sans-serif;
   box-sizing: border-box;
+  font-size: clamp(0.9rem, 1vw, 1.1rem);
   padding: 0;
   margin: 0;
 }
@@ -25,7 +26,6 @@
 body {
   display: flex;
   flex-direction: column;
-  font-size: 1rem;
   background-color: var(--green-200);
   min-height: 100dvh;
   width: 100%;
@@ -35,7 +35,7 @@ main {
   flex-grow: 1;
   margin: 0 auto;
   width: 100%;
-  max-width: 42rem;
+  max-width: 38rem;
 }
 
 #contact-names {
@@ -59,15 +59,11 @@ main {
     display: block;
     color: var(--grey-900);
     width: 100%;
-    margin: 1rem auto 0.5rem auto;
+    margin-block-end: 0.5rem;
 
     span {
       color: var(--red);
     }
-  }
-
-  legend {
-    padding-block-start: 1rem;
   }
 
   .input-description {
@@ -90,6 +86,19 @@ main {
     width: 100%;
   }
 
+  input:hover {
+    cursor: pointer;
+  }
+
+  .input-error {
+    border-color: var(--error);
+  }
+
+  input:focus, textarea:focus {
+    border-color: var(--green-600);
+    outline: var(--green-600);
+  }
+
   fieldset {
     display: flex;
     border: none;
@@ -99,28 +108,51 @@ main {
       border: 1px solid var(--grey-500);
       color: var(--grey-900);
       padding: 1rem;
+      margin: 0;
       border-radius: 0.5rem;
+      cursor: pointer;
 
       input {
         width: initial;
         margin-right: 0.5rem;
+        accent-color: var(--green-600);
       }
 
       span {
         color: var(--grey-500);
       }
     }
+
+    label:hover {
+      background-color: var(--green-200);
+      border-color: var(--green-600);
+    }
+  }
+
+  fieldset, .input-field {
+    margin-block-start: 1rem;
+    margin-block-end: 0.5rem;
   }
 
   input[type="checkbox"] {
     width: initial;
     margin-right: 0.5rem;
+    accent-color: var(--green-600);
   }
 
   [type="submit"] {
     background-color: var(--green-600);
     color: var(--white);
     margin-block-start: 1rem;
+    cursor: pointer;
+  }
+
+  [type="submit"]:hover {
+    background-color: var(--grey-900);
+  }
+
+  [for="consent"] {
+    cursor: pointer;
   }
 }
 
@@ -129,14 +161,27 @@ footer {
   margin: 0 auto;
 }
 
+.toast, .toast-description {
+  background-color: var(--grey-900) !important;
+  color: var(--white) !important;
+}
+
+.toast-title {
+  font-weight: bolder !important;
+}
+
 /* Mobile */
 @media (width < 42rem) {
   #contact-names {
     flex-direction: column;
   }
 
-  fieldset {
+  #contact-form fieldset {
     flex-direction: column;
+
+    label {
+      margin-block-end: 0.75rem;
+    }
   }
 }
 

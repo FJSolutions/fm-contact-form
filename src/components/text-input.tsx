@@ -1,6 +1,6 @@
 import type { Signal } from "@preact/signals"
 import { type PropsWithChildren } from "preact/compat";
-import { Fragment } from "preact";
+import { Fragment, type TargetedEvent } from "preact";
 import { match, P } from "ts-pattern";
 import { errorMessages } from "./component-utils.tsx";
 
@@ -26,37 +26,54 @@ const TextInput = (props: TextInputProps) => {
 
    const errorComponent = errorMessages(props.errors, props.name)
 
+   const handleTextChange = (event: TargetedEvent<HTMLInputElement> | TargetedEvent<HTMLTextAreaElement>) => {
+      const val = event.currentTarget.value
+      if (props.value.value !== val) {
+         props.value.value = val
+      }
+   }
+
    let inputComponent =
       match(props.type)
          .with("text", () => (
             <input
                type="text"
+               class={props.errors?.value[props.name] && `input-error`}
                name={inputName}
                id={inputName}
                aria-required={props.required}
                aria-describedby={props.description ? `${inputName}-description` : undefined}
                value={props.value.value}
                placeholder={props.placeholder}
-               autoFocus={props.autoFocus}/>))
+               autoFocus={props.autoFocus}
+               onChange={handleTextChange}
+               onKeyPress={handleTextChange}/>))
          .with("email", () => (
             <input
                type="email"
+               class={props.errors?.value[props.name] && `input-error`}
                name={inputName}
                id={inputName}
                aria-required={props.required}
                aria-describedby={props.description ? `${inputName}-description` : undefined}
                value={props.value.value}
                placeholder={props.placeholder}
-               autoFocus={props.autoFocus}/>))
+               autoFocus={props.autoFocus}
+               onChange={handleTextChange}
+               onKeyPress={handleTextChange}/>))
          .with("textarea", () => (
             <textarea
+               rows={5}
+               class={props.errors?.value[props.name] && `input-error`}
                name={inputName}
                id={inputName}
                aria-required={props.required}
                aria-describedby={props.description ? `${inputName}-description` : undefined}
                value={props.value.value}
                placeholder={props.placeholder}
-               autoFocus={props.autoFocus}></textarea>))
+               autoFocus={props.autoFocus}
+               onChange={handleTextChange}
+               onKeyPress={handleTextChange}></textarea>))
          .with(P.nullish, () => (<Fragment/>))
          .exhaustive()
 
@@ -64,8 +81,8 @@ const TextInput = (props: TextInputProps) => {
       <div class="input-field">
          <label for={inputName}>
             {props.label} {props.required && <span>*</span>}
-            {inputComponent}
          </label>
+         {inputComponent}
          {descriptionComponent}
          {errorComponent}
       </div>
