@@ -62,7 +62,7 @@ Be able to navigate the whole form and submit it by only using the keyboard and 
 I am absolutely loving `prect`. I have used `react` before, especially in `next.js` and enjoyed it,
 but I am seeing the reason that `preact` was created, and I'm really enjoying it.
 
-Having said that, I decided to use `creatModel` for the first time and was caught by the difference
+Having said that, I decided to use `createModel` for the first time and was caught by the difference
 in the render cycle between hooks and signals. I probably spent half of the time, which I did spend
 on the project, on understanding and debugging this. A very worthwhile exercise, even if it was very
 frustrating from time to time.
