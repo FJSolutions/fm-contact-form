@@ -21,7 +21,9 @@ Frontend Mentor challenges help you improve your coding skills by building reali
 
 ### The challenge
 
-### Screenshot
+Navigate the whole form and submit it by only using the keyboard.
+
+### Screenshots
 
 #### Mobile view
 
@@ -37,8 +39,8 @@ Frontend Mentor challenges help you improve your coding skills by building reali
 
 ### Links
 
-- Solution URL:
-- Live Site URL:
+- Solution URL: https://github.com/FJSolutions/fm-contact-form
+- Live Site URL: 
 
 ## My process
 
@@ -57,51 +59,36 @@ Frontend Mentor challenges help you improve your coding skills by building reali
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project.
-Writing these out and providing code samples of areas you want to highlight is a great way to
-reinforce your own knowledge.
+- Absolutely loving `prect`
+- Making input components for consistent layout, classes, and accessibility 
 
-To see how you can add code snippets, see below:
-
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
+- Find a better way to structure my CSS; it's become too spaghetti-like.
 
 ```css
-.proud-of-this-css {
-  color: papayawhip;
+[type="submit"]:hover {
+  background-color: var(--grey-900);
 }
 ```
 
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
+- Challenges of using `createModel` (multiple re-renders loosing state) and just how good it is
+
+
+```ts
+export const ContactModel = createModel((): Contact => {
+  const firstName = signal("")
+  const surname = signal("")
+  const email = signal("")
+...
+})
 ```
 
 ### Continued development
 
 Save the data in a database for later use.
 
-### Useful resources
-
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this
-  pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally
-  understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the
-challenge. These could come in handy for anyone viewing your solution or for yourself when you look
-back on this project in the future.**
-
 ### AI Collaboration
 
-Describe how you used AI tools (if any) during this project. This helps demonstrate your ability to
-work effectively with AI assistants.
-
-- What tools did you use (e.g., ChatGPT, Claude, GitHub Copilot)?
-- How did you use them (e.g., debugging, generating boilerplate, brainstorming solutions)?
-- What worked well? What didn't?
+I used external AIs to validate and inform my design ideas and implementations but no code generation.
 
 ## Author
 

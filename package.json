@@ -1,5 +1,6 @@
 {
   "name": "contact-form-main",
+  "description": "This is Francis Judge's implementation of the Frontend Mentor's project: Contact Form",
   "private": true,
   "version": "0.0.0",
   "type": "module",
