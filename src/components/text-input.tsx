@@ -2,7 +2,7 @@ import type { Signal } from "@preact/signals"
 import { type PropsWithChildren } from "preact/compat";
 import { Fragment, type TargetedEvent } from "preact";
 import { match, P } from "ts-pattern";
-import { errorMessages } from "./component-utils.tsx";
+import { FormField } from "./form-field.tsx";
 
 export interface TextInputProps extends PropsWithChildren {
    name: string
@@ -18,13 +18,6 @@ export interface TextInputProps extends PropsWithChildren {
 
 const TextInput = (props: TextInputProps) => {
    const inputName = `${props.name}`
-
-   const descriptionComponent = props.description ?
-      <div id={`${inputName}-description`} className="input-description">
-         {props.description}
-      </div> : Fragment;
-
-   const errorComponent = errorMessages(props.errors, props.name)
 
    const handleTextChange = (event: TargetedEvent<HTMLInputElement> | TargetedEvent<HTMLTextAreaElement>) => {
       const val = event.currentTarget.value
@@ -78,14 +71,12 @@ const TextInput = (props: TextInputProps) => {
          .exhaustive()
 
    return (
-      <div class="input-field">
+      <FormField name={props.name} errors={props.errors} description={props.description}>
          <label for={inputName}>
             {props.label} {props.required && <span>*</span>}
          </label>
          {inputComponent}
-         {descriptionComponent}
-         {errorComponent}
-      </div>
+      </FormField>
    )
 }
 

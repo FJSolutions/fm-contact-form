@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from "preact/compat";
 import type { Signal } from "@preact/signals";
-import { Fragment, type TargetedEvent } from "preact";
-import { errorMessages } from "./component-utils.tsx";
+import { type TargetedEvent } from "preact";
+import { FormField } from "./form-field.tsx";
 
 export interface CheckInputProps extends PropsWithChildren {
    name: string
@@ -15,18 +15,12 @@ export interface CheckInputProps extends PropsWithChildren {
 const CheckInput = (props: CheckInputProps) => {
    const inputName = `${props.name}`
 
-   const descriptionComponent = props.description ? <div className="input-description">
-      {props.description}
-   </div> : Fragment;
-
-   const errorComponent = errorMessages(props.errors, props.name)
-
    const handleCheckChange = (e: TargetedEvent<HTMLInputElement>) => {
       props.value.value = e.currentTarget.checked
    }
 
    return (
-      <div class="input-field">
+      <FormField name={props.name} errors={props.errors} description={props.description}>
          <label for={inputName}>
             <input
                type="checkbox"
@@ -38,9 +32,8 @@ const CheckInput = (props: CheckInputProps) => {
                onChange={handleCheckChange}/>
             {props.label} {props.required && <span>*</span>}
          </label>
-         {descriptionComponent}
-         {errorComponent}
-      </div>)
+      </FormField>
+   )
 }
 
 export { CheckInput }
